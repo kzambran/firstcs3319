@@ -1,0 +1,25 @@
+SHOW DATABASES;
+DROP DATABASE kzambranassign2db;
+CREATE database kzambranassign2db;
+USE kzambranassign2db;
+
+GRANT USAGE ON *.* TO 'ta'@'localhost';
+DROP USER 'ta'@'localhost';
+CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319';
+GRANT ALL PRIVILEGES ON yourwesternuseridassign2db.* TO 'ta'@'localhost';
+FLUSH PRIVILEGES;
+
+SHOW tables;
+
+CREATE TABLE product (productid CHAR(2), description VARCHAR(20), cost INT, quantity INT,  PRIMARY KEY(description));
+
+CREATE TABLE agents (agentid CHAR(2), agentname VARCHAR(30), lastname VARCHAR(30), city VARCHAR(15), commission INT,  PRIMARY KEY(agentname));
+
+CREATE TABLE costumer (costumerid CHAR(2), costumername VARCHAR(30), lastname VARCHAR(30), city VARCHAR(15), phonenumber VARCHAR(15), PRIMARY KEY(costumername));
+
+CREATE TABLE purchase (costumername VARCHAR(30), quantity INT, description VARCHAR(20), PRIMARY KEY(costumername, description),FOREIGN KEY (costumername) REFERENCES costumer(costumername),FOREIGN KEY (description) REFERENCES product(description));
+
+CREATE TABLE agentCustomer (agentname VARCHAR(30), costumername VARCHAR(30), PRIMARY KEY(agentname, costumername), FOREIGN KEY (agentname) REFERENCES agents(agentname), FOREIGN KEY (costumername) REFERENCES costumer(costumername));
+
+SHOW tables;
+
