@@ -1,0 +1,4 @@
+
+USE kzambranassign2db;
+
+LOAD DATA LOCAL INFILE 'http://www.csd.uwo.ca/~lreid/blendedcs3319/assignments/assignment2/loaddatafall2018.txt' INTO TABLE product;
