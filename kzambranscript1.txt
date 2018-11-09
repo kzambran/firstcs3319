@@ -11,11 +11,11 @@ FLUSH PRIVILEGES;
 
 SHOW tables;
 
-CREATE TABLE product (productid CHAR(2), description VARCHAR(20) not null, cost INT, quantity INT,  PRIMARY KEY(description));
-CREATE TABLE agents (agentid CHAR(2), agentname VARCHAR(30) not null, lastname VARCHAR(30), city VARCHAR(15), commission INT,  PRIMARY KEY(agentname));
-CREATE TABLE costumer (costumerid CHAR(2), costumername VARCHAR(30)not null, lastname VARCHAR(30), city VARCHAR(15), phonenumber VARCHAR(15), PRIMARY KEY(costumername));
-CREATE TABLE purchase (costumername VARCHAR(30) not null, quantity INT, description VARCHAR(20) not null, PRIMARY KEY(costumername, description),FOREIGN KEY (costumername) REFERENCES costumer(costumername),FOREIGN KEY (description) REFERENCES product(description));
-CREATE TABLE agentCustomer (agentname VARCHAR(30) not null, costumername VARCHAR(30)not null, PRIMARY KEY(agentname, costumername), FOREIGN KEY (agentname) REFERENCES agents(agentname), FOREIGN KEY (costumername) REFERENCES costumer(costumername));
+CREATE TABLE product (productid CHAR(2)not null, description VARCHAR(20), cost DOUBLE, quantity INT,  PRIMARY KEY(productid));
+CREATE TABLE agents (agentid CHAR(2)not null, firstname VARCHAR(30), lastname VARCHAR(30), city VARCHAR(15), commission INT,  PRIMARY KEY(agentid));
+CREATE TABLE costumer (costumerid CHAR(2)not null, firstname VARCHAR(30), lastname VARCHAR(30), city VARCHAR(15), phonenumber VARCHAR(15), PRIMARY KEY(costumerid));
+CREATE TABLE purchase (costumerid CHAR(2), quantity INT, productid CHAR(2), FOREIGN KEY (costumerid) REFERENCES costumer(costumerid),FOREIGN KEY (productid) REFERENCES product(productid));
+CREATE TABLE agentCostumer (agentid CHAR(2) not null, costumerid CHAR(2) not null, PRIMARY KEY(agentid, costumerid), FOREIGN KEY (agentid) REFERENCES agents(agentid), FOREIGN KEY (costumerid) REFERENCES costumer(costumerid));
 
 SHOW tables;
 

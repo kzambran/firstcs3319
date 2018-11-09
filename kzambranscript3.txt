@@ -1,0 +1,30 @@
+USE kzambranassign2db;
+
+SELECT description FROM product;
+
+SELECT DISTINCT city FROM costumer;
+
+SELECT * FROM agents ORDER BY city;
+
+SELECT firstname, lastname FROM costumer WHERE city = "Springfield";
+
+SELECT lastname FROM costumer WHERE costumerid IN (SELECT costumerid FROM agentCostumer WHERE agentid IN(SELECT agentid FROM agents WHERE firstname = "Regis"));
+
+SELECT description FROM product WHERE description LIKE '%Pad%' OR '%pad%';
+
+SELECT costumer.lastname, product.description, purchase.quantity FROM costumer, product, purchase WHERE purchase.costumerid = costumer.costumerid AND purchase.productid = product.productid;
+
+SELECT SUM(quantity) FROM purchase WHERE costumerid IN (SELECT costumerid FROM costumer WHERE firstname = "Homer");
+
+SELECT costumer.firstname, costumer.lastname, SUM(purchase.quantity) FROM costumer, purchase WHERE purchase.costumerid IN (SELECT costumerid FROM costumer WHERE costumer.costumerid = purchase.costumerid);
+
+SELECT DISTINCT product.description, product.quantity FROM product, purchase WHERE product.productid NOT IN(SELECT productid FROM purchase);
+
+SELECT DISTINCT product.description, product.quantity FROM product, purchase WHERE purchase.costumerid IN (SELECT costumerid FROM costumer WHERE firstname !="Fred" AND lastname != "Flintstone");
+
+SELECT agents.firstname, agents.lastname, costumer.firstname, costumer.lastname FROM agents, costumer, agentCostumer WHERE agentCostumer.agentid = agents.agentid AND  agentCostumer.costumerid = costumer.costumerid AND costumer.city = agents.city;
+
+SELECT SUM(quantity) FROM purchase WHERE productid IN (SELECT productid FROM product WHERE product.description = "Knee Pads");
+
+
+
