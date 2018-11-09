@@ -1,0 +1,117 @@
+--------------
+SELECT description FROM product
+--------------
+
+description
+Bike
+Socks
+Bike lock
+Elbow pads
+Knee Pads
+Roller Blades
+Helmet
+--------------
+SELECT DISTINCT city FROM costumer
+--------------
+
+city
+Boston
+Springfield
+Kypto
+Providence
+--------------
+SELECT * FROM agents ORDER BY city
+--------------
+
+agentid	firstname	lastname	city	commission
+33	David	Letterman	Bedrock	100
+11	Regis	Philbin	Boston	33
+14	Katherine	Zambrano	London	100
+22	Courtney	Cox	New York	25
+12	Rosie	Cox	Ottawa	50
+66	Rosie	ODonnell	Ottawa	100
+99	Hugh	Grant	Springfield	16
+--------------
+SELECT firstname, lastname FROM costumer WHERE city = "Springfield"
+--------------
+
+firstname	lastname
+Monty	Burns
+Homer	Simpson
+Sideshow	Bob
+--------------
+SELECT lastname FROM costumer WHERE costumerid IN (SELECT costumerid FROM agentCostumer WHERE agentid IN(SELECT agentid FROM agents WHERE firstname = "Regis"))
+--------------
+
+lastname
+Rubble
+Flintstone
+--------------
+SELECT description FROM product WHERE description LIKE '%Pad%' OR '%pad%'
+--------------
+
+description
+Elbow pads
+Knee Pads
+--------------
+SELECT costumer.lastname, product.description, purchase.quantity FROM costumer, product, purchase WHERE purchase.costumerid = costumer.costumerid AND purchase.productid = product.productid
+--------------
+
+lastname	description	quantity
+Griffens	Elbow pads	19
+Flintstone	Elbow pads	2
+Flintstone	Knee Pads	2
+Simpson	Helmet	20
+Simpson	Socks	14
+Simpson	Elbow pads	10
+Bob	Helmet	5
+Bob	Socks	5
+Bob	Knee Pads	5
+Bob	Elbow pads	5
+--------------
+SELECT SUM(quantity) FROM purchase WHERE costumerid IN (SELECT costumerid FROM costumer WHERE firstname = "Homer")
+--------------
+
+SUM(quantity)
+44
+--------------
+SELECT costumer.firstname, costumer.lastname, SUM(purchase.quantity) FROM costumer, purchase WHERE purchase.costumerid IN (SELECT costumerid FROM costumer WHERE costumer.costumerid = purchase.costumerid)
+--------------
+
+firstname	lastname	SUM(purchase.quantity)
+Barney	Rubble	609
+--------------
+SELECT DISTINCT product.description, product.quantity FROM product, purchase WHERE product.productid NOT IN(SELECT productid FROM purchase)
+--------------
+
+description	quantity
+Bike	200
+Bike lock	100
+Roller Blades	89
+--------------
+SELECT DISTINCT product.description, product.quantity FROM product, purchase WHERE purchase.costumerid IN (SELECT costumerid FROM costumer WHERE firstname !="Fred" AND lastname != "Flintstone")
+--------------
+
+description	quantity
+Bike	200
+Socks	100
+Bike lock	100
+Elbow pads	120
+Knee Pads	70
+Roller Blades	89
+Helmet	30
+--------------
+SELECT agents.firstname, agents.lastname, costumer.firstname, costumer.lastname FROM agents, costumer, agentCostumer WHERE agentCostumer.agentid = agents.agentid AND  agentCostumer.costumerid = costumer.costumerid AND costumer.city = agents.city
+--------------
+
+firstname	lastname	firstname	lastname
+Regis	Philbin	Barney	Rubble
+Regis	Philbin	Fred	Flintstone
+Hugh	Grant	Monty	Burns
+Hugh	Grant	Homer	Simpson
+--------------
+SELECT SUM(quantity) FROM purchase WHERE productid IN (SELECT productid FROM product WHERE product.description = "Knee Pads")
+--------------
+
+SUM(quantity)
+7

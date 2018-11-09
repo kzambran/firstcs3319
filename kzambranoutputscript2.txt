@@ -1,0 +1,288 @@
+--------------
+LOAD DATA LOCAL INFILE 'loaddatafall2018.txt' INTO TABLE product FIELDS TERMINATED BY ','
+--------------
+
+--------------
+SELECT * FROM product
+--------------
+
+productid	description	cost	quantity
+11	Bike	150	200
+12	Socks	2	100
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+INSERT INTO product VALUES("66",  "Elbow pads", 14.25, 120)
+--------------
+
+--------------
+INSERT INTO product VALUES("20",  "Bike lock", 45.99, 100)
+--------------
+
+--------------
+INSERT INTO agents VALUES("99", "Hugh", "Grant", "Springfield", 16)
+--------------
+
+--------------
+INSERT INTO agents VALUES("22", "Courtney", "Cox", "New York", 25)
+--------------
+
+--------------
+INSERT INTO agents VALUES("66", "Rosie", "ODonnell", "Ottawa", 100)
+--------------
+
+--------------
+INSERT INTO agents VALUES("33", "David", "Letterman", "Bedrock", 100)
+--------------
+
+--------------
+INSERT INTO agents VALUES("11", "Regis", "Philbin", "Boston", 33)
+--------------
+
+--------------
+INSERT INTO agents VALUES("12", "Rosie", "Cox", "Ottawa", 50)
+--------------
+
+--------------
+INSERT INTO agents VALUES("14", "Katherine", "Zambrano", "London", 100)
+--------------
+
+--------------
+INSERT INTO costumer VALUES("21", "Homer", "Simpson", "Springfield", "686-8956")
+--------------
+
+--------------
+INSERT INTO costumer VALUES("31", "Sideshow", "Bob", "Springfield", "686-5555")
+--------------
+
+--------------
+INSERT INTO costumer VALUES("12", "Monty", "Burns", "Springfield", "789-0000")
+--------------
+
+--------------
+INSERT INTO costumer VALUES("15", "Fred", "Flintstone", "Bedrock", "777-2345")
+--------------
+
+--------------
+INSERT INTO costumer VALUES("13", "Super", "Man", "Kypto", "888-1234")
+--------------
+
+--------------
+INSERT INTO costumer VALUES("10", "Barney", "Rubble", "Bedrock", "777-1234")
+--------------
+
+--------------
+INSERT INTO costumer VALUES("14", "Peter", "Griffens", "Providence", "987-4567")
+--------------
+
+--------------
+INSERT INTO purchase VALUES("21", 20, "99")
+--------------
+
+--------------
+INSERT INTO purchase VALUES("21", 14, "12")
+--------------
+
+--------------
+INSERT INTO purchase VALUES("21", 10, "66")
+--------------
+
+--------------
+INSERT INTO purchase VALUES("31", 1, "99")
+--------------
+
+--------------
+INSERT INTO purchase VALUES("31", 2, "12")
+--------------
+
+--------------
+INSERT INTO purchase VALUES("31", 4, "78")
+--------------
+
+--------------
+INSERT INTO purchase VALUES("31", 2, "66")
+--------------
+
+--------------
+INSERT INTO purchase VALUES("15", 2, "66")
+--------------
+
+--------------
+INSERT INTO purchase VALUES("15", 2, "78")
+--------------
+
+--------------
+INSERT INTO purchase VALUES("14", 19, "66")
+--------------
+
+--------------
+INSERT INTO agentCostumer VALUES("99", "21")
+--------------
+
+--------------
+INSERT INTO agentCostumer VALUES("99", "12")
+--------------
+
+--------------
+INSERT INTO agentCostumer VALUES("99", "14")
+--------------
+
+--------------
+INSERT INTO agentCostumer VALUES("33", "13")
+--------------
+
+--------------
+INSERT INTO agentCostumer VALUES("11", "10")
+--------------
+
+--------------
+INSERT INTO agentCostumer VALUES("11", "15")
+--------------
+
+--------------
+INSERT INTO agentCostumer VALUES("66", "31")
+--------------
+
+--------------
+SELECT * FROM product
+--------------
+
+productid	description	cost	quantity
+11	Bike	150	200
+12	Socks	2	100
+20	Bike lock	45.99	100
+66	Elbow pads	14.25	120
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+SELECT * FROM agents
+--------------
+
+agentid	firstname	lastname	city	commission
+11	Regis	Philbin	Boston	33
+12	Rosie	Cox	Ottawa	50
+14	Katherine	Zambrano	London	100
+22	Courtney	Cox	New York	25
+33	David	Letterman	Bedrock	100
+66	Rosie	ODonnell	Ottawa	100
+99	Hugh	Grant	Springfield	16
+--------------
+SELECT * FROM costumer
+--------------
+
+costumerid	firstname	lastname	city	phonenumber
+10	Barney	Rubble	Bedrock	777-1234
+12	Monty	Burns	Springfield	789-0000
+13	Super	Man	Kypto	888-1234
+14	Peter	Griffens	Providence	987-4567
+15	Fred	Flintstone	Bedrock	777-2345
+21	Homer	Simpson	Springfield	686-8956
+31	Sideshow	Bob	Springfield	686-5555
+--------------
+SELECT * FROM purchase
+--------------
+
+costumerid	quantity	productid
+21	20	99
+21	14	12
+21	10	66
+31	1	99
+31	2	12
+31	4	78
+31	2	66
+15	2	66
+15	2	78
+14	19	66
+--------------
+SELECT * FROM agentCostumer
+--------------
+
+agentid	costumerid
+11	10
+99	12
+33	13
+99	14
+11	15
+99	21
+66	31
+--------------
+UPDATE costumer SET firstname = "Wonder" WHERE firstname = "Super" AND lastname = "Man"
+--------------
+
+--------------
+UPDATE costumer SET lastname = "Woman" WHERE firstname = "Wonder" AND lastname = "Man"
+--------------
+
+--------------
+UPDATE purchase SET quantity = 5 WHERE costumerid IN (SELECT costumerid FROM costumer WHERE firstname = "Sideshow")
+--------------
+
+--------------
+UPDATE costumer SET city = "Boston" WHERE costumerid IN (SELECT costumerid FROM agentCostumer WHERE agentid IN(SELECT agentid FROM agents WHERE firstname = "Regis"))
+--------------
+
+--------------
+SELECT * FROM product
+--------------
+
+productid	description	cost	quantity
+11	Bike	150	200
+12	Socks	2	100
+20	Bike lock	45.99	100
+66	Elbow pads	14.25	120
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+SELECT * FROM agents
+--------------
+
+agentid	firstname	lastname	city	commission
+11	Regis	Philbin	Boston	33
+12	Rosie	Cox	Ottawa	50
+14	Katherine	Zambrano	London	100
+22	Courtney	Cox	New York	25
+33	David	Letterman	Bedrock	100
+66	Rosie	ODonnell	Ottawa	100
+99	Hugh	Grant	Springfield	16
+--------------
+SELECT * FROM costumer
+--------------
+
+costumerid	firstname	lastname	city	phonenumber
+10	Barney	Rubble	Boston	777-1234
+12	Monty	Burns	Springfield	789-0000
+13	Wonder	Woman	Kypto	888-1234
+14	Peter	Griffens	Providence	987-4567
+15	Fred	Flintstone	Boston	777-2345
+21	Homer	Simpson	Springfield	686-8956
+31	Sideshow	Bob	Springfield	686-5555
+--------------
+SELECT * FROM purchase
+--------------
+
+costumerid	quantity	productid
+21	20	99
+21	14	12
+21	10	66
+31	5	99
+31	5	12
+31	5	78
+31	5	66
+15	2	66
+15	2	78
+14	19	66
+--------------
+SELECT * FROM agentCostumer
+--------------
+
+agentid	costumerid
+11	10
+99	12
+33	13
+99	14
+11	15
+99	21
+66	31
