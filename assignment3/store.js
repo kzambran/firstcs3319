@@ -3,7 +3,7 @@ window.onload=function(){
 }
 function prepareListener(){
 	var droppy;
-	droppy=document.getElementById("pickamuseum");
+	droppy=document.getElementById("pickastore");
 	droppy.addEventListener("change", getArt);
 }function getArt(){
 	this.form.submit();
