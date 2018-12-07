@@ -1,12 +1,12 @@
 <?php
-$query = "SELECT * FROM costumer";
+$query = "SELECT * FROM costumer ORDER BY lastname";
 $result = mysqli_query($connection,$query);
 if (!$result) {
     die("databases query failed.");
 }
 while ($row = mysqli_fetch_assoc($result)) {
     var_dump($row);
-    echo $row . "<br>";
+    echo $row;
 }
    mysqli_free_result($result);
 ?>
